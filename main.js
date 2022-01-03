@@ -11,7 +11,7 @@ function getLine(textarea) {
 
     return v.substr(start, end - start);
 }
-
+let onLast = (ta) => ta.value.substr(0, ta.selectionStart).split("\n").length == ta.value.split("\n").length;
 let prelude = "";
 
 
@@ -20,7 +20,8 @@ code.setSelectionRange(code.value.length,code.value.length);
 code.addEventListener("keydown", (e) => {
     if (e.key == "Enter") {
         e.preventDefault();
-        let str = getLine(code).trim();
+        let s = getLine(code);
+        let str = s.trim();
         console.log(str);
         let out = "";
         if(str == ")h") {out = `REPL Help:
@@ -62,7 +63,8 @@ code.addEventListener("keydown", (e) => {
         } catch (obj) {
             out = "ERROR: " + fmtErr(obj);
         } }
-        code.value += code.value ? ("\n" + out + "\n  ") : "  ";
+        if(!onLast(code)) { out = s + out; }
+        code.value += code.value ? ( "\n" + out + "\n  ") : "  ";
         code.selectionStart = code.value.length;
         code.selectionEnd = code.value.length;
 
