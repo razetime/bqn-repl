@@ -11,6 +11,9 @@ function getLine(textarea) {
 
     return v.substr(start, end - start);
 }
+let scrollToBottom = (element) => {
+    element.scroll({ top: element.scrollHeight, behavior: 'smooth' });
+  }
 let onLast = (ta) => ta.value.substr(0, ta.selectionStart).split("\n").length == ta.value.split("\n").length;
 let prelude = "";
 
@@ -67,6 +70,6 @@ code.addEventListener("keydown", (e) => {
         code.value += code.value ? ( "\n" + out + "\n  ") : "  ";
         code.selectionStart = code.value.length;
         code.selectionEnd = code.value.length;
-
+        scrollToBottom(code);
     }
 });
