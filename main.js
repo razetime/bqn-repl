@@ -57,7 +57,7 @@ code.addEventListener("keydown", (e) => {
 ⊣  \\{  identity / left           !   !  assert / assert with message
 ⊢  \\}  identity / right`; }
         else if(str == ")lb") {let d=document;let e=d.createElement("script");e.src="https://abrudz.github.io/lb/bqn.js";d.body.appendChild(e)}
-        else { try {
+        else if(str != "") { try {
             out = fmt(bqn(prelude + str));
             if(str.match(/\b_?[a-z¯π∞0-9_]+_?\s*[←↩⇐]/i)) {
                 prelude += str + "\n";
