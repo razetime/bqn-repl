@@ -15,7 +15,8 @@ let scrollToBottom = (element) => {
     element.scroll({ top: element.scrollHeight, behavior: 'smooth' });
   }
 let onLast = (ta) => ta.value.substr(0, ta.selectionStart).split("\n").length == ta.value.split("\n").length;
-let prelude = "";
+let rbqn = bqn('•ReBQN{repl⇐"loose"}');
+let repl = x => rbqn(str(x));
 
 
 let code = document.getElementById("code");
@@ -32,7 +33,7 @@ code.addEventListener("keydown", (e) => {
 )cmds - show all commands
 )clear - clears all variables
 )cls - clears all text on screen.`; }
-        else if(str == ")clear") { prelude = ""; }
+        else if(str == ")clear") { rbqn = bqn('•ReBQN{repl⇐"loose"}'); }
         else if(str == ")cls") { code.value = ""; }
         else if(str == ")cmds") { out = `+   +  conjugate / add           ⥊  \\z  deshape / reshape
 -   -  negate / subtract         ∾  \\,  join / join to
@@ -58,11 +59,7 @@ code.addEventListener("keydown", (e) => {
 ⊢  \\}  identity / right`; }
         else if(str == ")lb") {let d=document;let e=d.createElement("script");e.src="https://abrudz.github.io/lb/bqn.js";d.body.appendChild(e)}
         else if(str != "") { try {
-            out = fmt(bqn(prelude + str));
-            if(str.match(/\b_?[a-z¯π∞0-9_]+_?\s*[←↩⇐]/i)) {
-                prelude += str + "\n";
-                console.log(prelude);
-            }
+            out = fmt(repl(str));
         } catch (obj) {
             out = "ERROR: " + fmtErr(obj);
         } }
