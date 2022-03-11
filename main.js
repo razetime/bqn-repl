@@ -1,5 +1,4 @@
 function getLine(textarea) {
-    console.log("getting stuff");
     let v = textarea.value;
     let start = 0, end = v.length;
     for (let i = textarea.selectionStart; i < v.length; i++) {
@@ -12,7 +11,8 @@ function getLine(textarea) {
     return v.substr(start, end - start);
 }
 let scrollToBottom = (element) => {
-    element.scroll({ top: element.scrollHeight, behavior: 'smooth' });
+    console.log("scrolling to ",element.scrollHeight);
+    element.scroll({ top: element.scrollHeight});
   }
 let onLast = (ta) => ta.value.substr(0, ta.selectionStart).split("\n").length == ta.value.split("\n").length;
 let rbqn = bqn('•ReBQN{repl⇐"loose"}');
@@ -26,7 +26,6 @@ code.addEventListener("keydown", (e) => {
         e.preventDefault();
         let s = getLine(code);
         let str = s.trim();
-        console.log(str);
         let out = "";
         if(str == ")h") {out = `REPL Help:
 )lb - show BQN keyboard
@@ -70,3 +69,4 @@ code.addEventListener("keydown", (e) => {
         scrollToBottom(code);
     }
 });
+
